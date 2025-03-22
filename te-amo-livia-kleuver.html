@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Meu Amor ❤️</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: black; color: white; font-family: Arial, sans-serif; text-align: center; }
+        .container { display: none; }
+        .start-screen { display: flex; justify-content: center; align-items: center; height: 100vh; }
+        .start-button { font-size: 24px; padding: 15px 30px; background: red; border: none; color: white; cursor: pointer; border-radius: 10px; }
+        .heart { position: absolute; bottom: 0; color: red; font-size: 24px; opacity: 0.8; animation: float 4s linear forwards; }
+        @keyframes float { from { transform: translateY(0); opacity: 1; } to { transform: translateY(-100vh); opacity: 0; } }
+        .content { margin-top: 80px; }
+        .carousel { width: 80%; margin: auto; overflow: hidden; height: 300px; display: flex; justify-content: center; align-items: center; }
+        .carousel img { width: auto; height: 100%; object-fit: cover; border-radius: 10px; }
+        .text { font-size: 24px; margin-top: 40px; }
+        .counter { font-size: 20px; margin-top: 20px; }
+        .letter { background: white; color: black; padding: 20px; border-radius: 10px; width: 80%; margin: 40px auto; }
+        .music-container { margin: 10px auto; text-align: center; width: 80%; }
+        .music-container iframe { width: 100%; max-width: 300px; height: 80px; border-radius: 12px; }
+    </style>
+</head>
+<body>
+    <div class="start-screen">
+        <button class="start-button" onclick="startSite()">Aperte aqui ❤️</button>
+    </div>
+    <div class="container">
+        <div class="content">
+            <div class="music-container">
+                <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/5qqabIl2vWzo9ApSC317sa?utm_source=generator" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+            </div>
+            <div class="carousel" id="carousel"></div>
+            <div class="text"><strong>Eu te amo desde o dia que te conheci ❤️</strong></div>
+            <div class="counter" id="counter"></div>
+            <div class="letter"><h2>Carta</h2><p>Meu amor, obrigado por entrar na minha vida e fazer dela mais feliz...</p></div>
+        </div>
+    </div>
+    <script>
+        function startSite() {
+            document.querySelector('.start-screen').style.display = 'none';
+            document.querySelector('.container').style.display = 'block';
+            createHearts();
+            startCounter();
+            startCarousel();
+        }
+
+        function createHearts() {
+            for (let i = 0; i < 20; i++) {
+                let heart = document.createElement('div');
+                heart.classList.add('heart');
+                heart.innerHTML = '❤️';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+                document.body.appendChild(heart);
+                setTimeout(() => heart.remove(), 4000);
+            }
+        }
+
+        function startCounter() {
+            const startDate = new Date("2024-11-18T00:00:00");
+            function updateCounter() {
+                let now = new Date();
+                let diff = now - startDate;
+                let years = Math.floor(diff / (1000 * 60 * 60 * 24 * 365));
+                let days = Math.floor((diff % (1000 * 60 * 60 * 24 * 365)) / (1000 * 60 * 60 * 24));
+                let hours = new Date(diff).getUTCHours();
+                let minutes = new Date(diff).getUTCMinutes();
+                let seconds = new Date(diff).getUTCSeconds();
+                document.getElementById('counter').innerText = `${years} anos, ${days} dias, ${hours} horas, ${minutes} minutos e ${seconds} segundos`;
+            }
+            setInterval(updateCounter, 1000);
+        }
+
+        function startCarousel() {
+            let images = [
+                'imagens/eu-e-ela.jpeg', 'imagens/eu-e-ela6.jpeg', 'imagens/eu-e-ela4.jpeg',
+                'imagens/eu-e-ela2.jpeg', 'imagens/eu-e-ela5.png', 'imagens/eu-e-ela7.jpeg',
+                'imagens/eu-e-ela3.jpeg', 'imagens/eu-e-ela8.png'
+            ];
+            let carousel = document.getElementById('carousel');
+            let index = 0;
+            function changeImage() {
+                carousel.innerHTML = `<img src="${images[index]}" alt="Foto">`;
+                index = (index + 1) % images.length;
+            }
+            changeImage();
+            setInterval(changeImage, 3000);
+        }
+    </script>
+</body>
+</html>
